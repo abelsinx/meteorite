@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
@@ -16,7 +17,7 @@ int main (int argc, char const *argv[]){
 	//creating the socket
 	if((sock = socket(AF_INET, SOCK_STREAM,0)) < 0){
 		printf("\n Socket creating error \n");
-		return -1
+		return -1;
 
 }
 //filling up temporatly the serv_addr with 0, until we get the actual
