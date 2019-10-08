@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]){
 		perror("Binding problems");
 		exit(3);
 	}
-
+	
 	//Listening
 	//while(0 < 1){
 		printf("\nGOT HERE1");
@@ -48,6 +48,12 @@ int main(int argc, char const *argv[]){
 			perror("Listen problems");
 			exit(4);
 		}
+		
+		//piping output from socket to stdin, stdout, stderr
+		//for (int i=0; i<3; i++){
+		//	dup2(i, new_sock);
+		//}
+		
 		
 		//accepting the connection and making anew socket 
 		//where the data will go through
@@ -58,21 +64,21 @@ int main(int argc, char const *argv[]){
 			exit(5);
 		}
 		
-		printf("\nGOT HERE3");
-		for (int i=0; i<3; i++){
-			dup2(i, new_sock);
+		printf("\nGOT HERE3\n");
+		//for (int i=0; i<3; i++){
+		//	dup2(i, new_sock);
+		//}
+		if((valread = recv(new_sock, buffer, 1024, 0)) < 0){
+			perror("data unable to be printed\n");
+			exit(6);
 		}
-		//if((valread = recv(new_sock, buffer, 1024, 0)) < 0){
-		//	perror("data unable to be printed\n");
-		//	exit(6);
-		//}
-		//else{
+		else{
 			//printf("\n%d\n", valread);
-		//	printf("%s\n", buffer);
-		//	memset(buffer, '\0', sizeof(buffer)); //cleaning the buffer
-
-		//}
+			printf("%s\n", buffer);
+			memset(buffer, '\0', sizeof(buffer)); //cleaning the buffer
+		
+		}
 	//}
-
+	
 	return 0;
 }
