@@ -8,7 +8,7 @@
 #define PORT 8080
 
 int main(int argc, char const *argv[]){
-	
+
 	int sockfd, new_sock;     //the socket file descriptor
 	int opt = 1;
 	struct sockaddr_in address;

